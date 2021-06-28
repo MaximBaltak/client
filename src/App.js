@@ -1,7 +1,7 @@
 import Chat from './components/Chat/Chat';
 import { useEffect, useState } from 'react';
 import './App.css';
-const ws= new WebSocket('ws://localhost:3001')
+const ws= new WebSocket( window.location.host)
 function App() {
  
   ws.onopen=()=>{
