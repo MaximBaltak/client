@@ -10,7 +10,14 @@ function App() {
   ws.onclose=()=>{
     setStatus('Нет соеденения')
   }
-  
+  ws.onmessage=response=>{
+             
+    if(response.data){
+      
+
+      setMasseges([...masseges,response.data])
+    }
+  }
   
   
       
@@ -30,20 +37,13 @@ function App() {
             ws.send(valueText)
             setValueText('')
 
-            ws.onmessage=response=>{
-             
-              if(response.data){
-                
-   
-                setMasseges([...masseges,response.data])
-              }
             
             
             
           }
         }
     }
-  }
+
 
   let Change=(e)=>{
       setValueText(e.target.value)
