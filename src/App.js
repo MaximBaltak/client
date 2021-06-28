@@ -33,7 +33,7 @@ function App() {
 
   let Text=(e)=>{
     if(e.code==='Enter'){
-        if(e.ctrlKey){
+      
           
            
             
@@ -43,9 +43,10 @@ function App() {
             
             
             
-          }
-        }
+        
     }
+    }
+    
 
 
   let Change=(e)=>{
