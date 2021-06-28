@@ -1,23 +1,63 @@
-import logo from './logo.svg';
+import Chat from './components/Chat/Chat';
+import { useState } from 'react';
 import './App.css';
-
+const ws= new WebSocket('ws://localhost:3001')
 function App() {
+ 
+  ws.onopen=()=>{
+    setStatus('Онлайн')
+  }
+  ws.onclose=()=>{
+    setStatus('Нет соеденения')
+  }
+  
+  
+  
+      
+ 
+  let [status,setStatus] = useState('Онлайн')
+
+  let [masseges,setMasseges]=useState([])
+  let [valueText,setValueText]=useState('')
+  
+
+  let Text=(e)=>{
+    if(e.code==='Enter'){
+        if(e.ctrlKey){
+          
+           
+            
+            ws.send(valueText)
+            setValueText('')
+
+            ws.onmessage=response=>{
+             
+              if(response.data){
+                
+   
+                setMasseges([...masseges,response.data])
+              }
+            
+            
+            
+          }
+        }
+    }
+  }
+
+  let Change=(e)=>{
+      setValueText(e.target.value)
+    
+  }
+  
+
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+     <h1>ЧАТ</h1>
+     <p>{status}</p>
+     <Chat masseges={masseges} valueText={valueText} change={Change} text={Text} />
     </div>
   );
 }
