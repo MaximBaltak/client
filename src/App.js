@@ -1,5 +1,5 @@
 import Chat from './components/Chat/Chat';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 const ws= new WebSocket('ws://localhost:3001')
 function App() {
@@ -10,14 +10,17 @@ function App() {
   ws.onclose=()=>{
     setStatus('Нет соеденения')
   }
-  ws.onmessage=response=>{
+  useEffect(()=>{
+    ws.onmessage=response=>{
              
-    if(response.data){
-      
-
-      setMasseges([...masseges,response.data])
+      if(response.data){
+        
+  
+        setMasseges([...masseges,response.data])
+      }
     }
-  }
+  })
+  
   
   
       
